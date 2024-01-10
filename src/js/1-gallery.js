@@ -1,5 +1,6 @@
 import simplelightbox from 'https://cdn.jsdelivr.net/npm/simplelightbox@2.14.2/+esm';
 
+
 const images = [
     {
     preview:
@@ -67,6 +68,8 @@ const images = [
 ];
 
 
+
+console.log(images);
 const gallery = document.querySelector('.gallery');
 
 gallery.style.display = "grid";
