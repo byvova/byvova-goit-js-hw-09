@@ -104,32 +104,25 @@ galleryImages.forEach(item => {
     item.style.height = "300px";
 });
 
-const lightbox = new SimpleLightbox('.gallery a');
-
-const p = document.createElement('p')
-const text = document.createTextNode(`${images.description}`)
+const lightbox = new Simplelightbox('.gallery a');
 
 lightbox.on('show.simplelightbox', function () {
     const currentImage = lightbox.currentImage;
 
-    if (currentImage && currentImage.hasOwnProperty('alt')) {
-        const currentImageAlt = currentImage.alt;
+    if (currentImage && currentImage.querySelector('img').hasAttribute('alt')) {
+        const currentImageAlt = currentImage.querySelector('img').getAttribute('alt');
 
-        // Create a new element to hold the alt text
         const altParagraph = document.createElement('p');
         altParagraph.classList.add('lightbox-alt');
         altParagraph.textContent = currentImageAlt;
 
-        // Append the alt text below the image in the lightbox
         currentImage.appendChild(altParagraph);
     }
 });
 
 lightbox.on('close.simplelightbox', function () {
-    // Remove the alt text when the lightbox is closed
     const altParagraph = document.querySelector('.lightbox-alt');
     if (altParagraph) {
         altParagraph.remove();
     }
 });
-
