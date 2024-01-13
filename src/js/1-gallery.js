@@ -1,5 +1,7 @@
-import simplelightbox from 'https://cdn.jsdelivr.net/npm/simplelightbox@2.14.2/+esm';
-
+// Описаний в документації
+import SimpleLightbox from "simplelightbox";
+// Додатковий імпорт стилів
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const images = [
     {
@@ -68,61 +70,20 @@ const images = [
 ];
 
 
+const options = {
+    captionsData: 'description', 
+    captionDelay: 1000, 
+};
 
-console.log(images);
 const gallery = document.querySelector('.gallery');
 
-gallery.style.display = "grid";
-gallery.style.gridTemplateColumns = "repeat(3, 1fr)";
-gallery.style.gridColumnGap = "24px";
-gallery.style.gridRowGap = "24px";
-gallery.style.margin = "0 156px";
 
 gallery.innerHTML = images.reduce((html, image) => html + `
     <li class="gallery-item">
-    <a
-    class="gallery-link"
-    href="${image.original}">
-        <img
-        class="gallery-image"
-        src="${image.preview}" 
-        alt="${image.description}" />
-    </a>
+        <a class="gallery-link" href="${image.original}">
+            <img class="gallery-image" src="${image.preview}" alt="${image.description}" />
+        </a>
     </li>
 `, "");
 
-
-
-const galleryItems = document.querySelectorAll('.gallery-item');
-galleryItems.forEach(item => item.style.listStyle = "none");
-
-const galleryImages = document.querySelectorAll('.gallery-image');
-galleryImages.forEach(item => {
-    item.style.display = "block";
-    item.style.width = "500px";
-    item.style.maxWidth = "100%";
-    item.style.height = "300px";
-});
-
-const lightbox = new Simplelightbox('.gallery a');
-
-lightbox.on('show.simplelightbox', function () {
-    const currentImage = lightbox.currentImage;
-
-    if (currentImage && currentImage.querySelector('img').hasAttribute('alt')) {
-        const currentImageAlt = currentImage.querySelector('img').getAttribute('alt');
-
-        const altParagraph = document.createElement('p');
-        altParagraph.classList.add('lightbox-alt');
-        altParagraph.textContent = currentImageAlt;
-
-        currentImage.appendChild(altParagraph);
-    }
-});
-
-lightbox.on('close.simplelightbox', function () {
-    const altParagraph = document.querySelector('.lightbox-alt');
-    if (altParagraph) {
-        altParagraph.remove();
-    }
-});
+const lightbox = new SimpleLightbox('.gallery a', options);

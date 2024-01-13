@@ -3,8 +3,11 @@ const textarea = form.elements.message;
 const emailInput = form.elements.email;
 const localStorageKey = "feedback-form-state";
 
-textarea.value = JSON.parse(localStorage.getItem(localStorageKey))?.message || "";
-emailInput.value = JSON.parse(localStorage.getItem(localStorageKey))?.email || "";
+document.addEventListener('DOMContentLoaded', () => {
+    const savedData = JSON.parse(localStorage.getItem(localStorageKey)) || {};
+    textarea.value = savedData.message || "";
+    emailInput.value = savedData.email || "";
+});
 
 form.addEventListener("input", (event) => {
     const { name, value } = event.target;
@@ -19,7 +22,7 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     if (textarea.value.trim() === "" || emailInput.value.trim() === "") {
-        alert("Please fill in both fields before submitting.");
+        alert("Please fill in both fields before submitting.");     
     } else {
         console.log({
             email: emailInput.value.trim(),
