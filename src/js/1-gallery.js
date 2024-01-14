@@ -71,8 +71,8 @@ const images = [
 
 
 const options = {
-    captionsData: 'description', 
-    captionDelay: 1000, 
+    captionsData: 'alt', 
+    captionDelay: 250,  
 };
 
 const gallery = document.querySelector('.gallery');
